@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Used</title>
+    <title>Relationships between Krill and Top Predators</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,21 +39,6 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
         .image-section {
             text-align: center;
             margin-top: 20px;
@@ -78,26 +63,29 @@
 </head>
 <body>
     <header>
-        <h1>Data Used in the Study</h1>
-        <p>Detailed information about the datasets utilized</p>
+        <h1>Relationships between Krill and Top Predators in the Ross Sea</h1>
+        <p>Based on predictive distributions and Machine Learning algorithms</p>
     </header>
     <nav>
         <a href="index.html">Home</a>
         <a href="dati.html">Data</a>
     </nav>
-    <section>
-        <h2>Dataset Preview</h2>
-        <p>Below is a table displaying data from the study:</p>
-        <table id="data-table">
-            <thead>
-                <tr></tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>Over the past two centuries, human exploitation and climate change have caused significant shifts in Antarctic marine biodiversity. Krill, a fundamental component of the marine food web, serves as a crucial ecological indicator.</p>
+        <p>This study leverages historical data from the Ross Sea to build distribution models using machine learning techniques, offering new insights into biogeography and ecological dynamics.</p>
+    </section>
+    <section id="objectives">
+        <h2>Objectives</h2>
+        <ul>
+            <li>Build predictive distribution models for krill and top predators.</li>
+            <li>Analyze the interactions between environmental descriptors and organisms.</li>
+            <li>Visualize distributions through thematic maps in the Ross Sea.</li>
+        </ul>
     </section>
     <section class="image-section">
         <h2>Study Visuals</h2>
-        <p>Maps and charts generated during the study:</p>
+        <p>Here are some key images and maps generated during the study:</p>
         <img src="adelie_Map.png" alt="Adelie Penguin Distribution Map">
         <p><strong>Adelie Penguin Distribution Map:</strong> Visualizing the spatial distribution of Adelie penguins based on collected data.</p>
         <img src="krill_distribution.png" alt="Krill Distribution Map">
@@ -108,35 +96,5 @@
     <footer>
         <p>Created by Davide Crupi - University of Genoa</p>
     </footer>
-    <script>
-        // Load and display the CSV data
-        fetch('data.csv')
-            .then(response => response.text())
-            .then(csv => {
-                const rows = csv.split('\n').filter(row => row.trim() !== '');
-                const table = document.getElementById('data-table');
-                const thead = table.querySelector('thead tr');
-                const tbody = table.querySelector('tbody');
-                
-                rows.forEach((row, index) => {
-                    // Use ";" as delimiter
-                    const cols = row.split(';');
-                    const tr = document.createElement('tr');
-                    
-                    cols.forEach(col => {
-                        const cell = document.createElement(index === 0 ? 'th' : 'td');
-                        cell.textContent = col.trim();
-                        tr.appendChild(cell);
-                    });
-                    
-                    if (index === 0) {
-                        thead.appendChild(tr);
-                    } else {
-                        tbody.appendChild(tr);
-                    }
-                });
-            })
-            .catch(error => console.error('Error loading CSV:', error));
-    </script>
 </body>
 </html>
