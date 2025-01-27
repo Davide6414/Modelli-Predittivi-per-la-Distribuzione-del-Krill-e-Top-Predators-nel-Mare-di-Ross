@@ -39,6 +39,21 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
         footer {
             background-color: #222;
             color: white;
@@ -59,24 +74,47 @@
         <a href="index.html">Home</a>
         <a href="dati.html">Data</a>
     </nav>
-    <section id="data-details">
-        <h2>Overview of Data</h2>
-        <p>The study relies on historical data collected during the 1994-1995 Antarctic research campaigns in the Ross Sea. These datasets include information on krill distribution, environmental descriptors, and predator activity.</p>
-    </section>
-    <section id="datasets">
-        <h2>Datasets</h2>
-        <ul>
-            <li><strong>Krill Data:</strong> Acoustic surveys capturing krill density and distribution.</li>
-            <li><strong>Environmental Data:</strong> Temperature, salinity, and ice coverage data layers extracted from remote sensing and in-situ measurements.</li>
-            <li><strong>Predator Observations:</strong> Visual census of seabirds and marine mammals, including spatially referenced records.</li>
-        </ul>
-    </section>
-    <section id="tools">
-        <h2>Tools and Software</h2>
-        <p>QGIS and R programming were utilized for data processing, geospatial analysis, and model implementation. Random Forest algorithms were applied to generate predictive distributions.</p>
+    <section>
+        <h2>Dataset Preview</h2>
+        <p>Below is a table displaying data from the study:</p>
+        <table id="data-table">
+            <thead>
+                <tr></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </section>
     <footer>
         <p>Created by Davide Crupi - University of Genoa</p>
     </footer>
+    <script>
+        // Load and display the CSV data
+        fetch('data.csv')
+            .then(response => response.text())
+            .then(csv => {
+                const rows = csv.split('\\n').filter(row => row.trim() !== '');
+                const table = document.getElementById('data-table');
+                const thead = table.querySelector('thead tr');
+                const tbody = table.querySelector('tbody');
+                
+                rows.forEach((row, index) => {
+                    const cols = row.split(',');
+                    const tr = document.createElement('tr');
+                    
+                    cols.forEach(col => {
+                        const cell = document.createElement(index === 0 ? 'th' : 'td');
+                        cell.textContent = col.trim();
+                        tr.appendChild(cell);
+                    });
+                    
+                    if (index === 0) {
+                        thead.appendChild(tr);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
+            })
+            .catch(error => console.error('Error loading CSV:', error));
+    </script>
 </body>
 </html>
