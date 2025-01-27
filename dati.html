@@ -90,32 +90,32 @@
     <script>
         // Load and display the CSV data
         fetch('data.csv')
-    .then(response => response.text())
-    .then(csv => {
-        const rows = csv.split('\\n').filter(row => row.trim() !== '');
-        const table = document.getElementById('data-table');
-        const thead = table.querySelector('thead tr');
-        const tbody = table.querySelector('tbody');
-        
-        rows.forEach((row, index) => {
-            // Usa ";" come delimitatore
-            const cols = row.split(';');
-            const tr = document.createElement('tr');
-            
-            cols.forEach(col => {
-                const cell = document.createElement(index === 0 ? 'th' : 'td');
-                cell.textContent = col.trim();
-                tr.appendChild(cell);
-            });
-            
-            if (index === 0) {
-                thead.appendChild(tr);
-            } else {
-                tbody.appendChild(tr);
-            }
-        });
-    })
-    .catch(error => console.error('Error loading CSV:', error));
-
+            .then(response => response.text())
+            .then(csv => {
+                const rows = csv.split('\n').filter(row => row.trim() !== '');
+                const table = document.getElementById('data-table');
+                const thead = table.querySelector('thead tr');
+                const tbody = table.querySelector('tbody');
+                
+                rows.forEach((row, index) => {
+                    // Use ";" as delimiter
+                    const cols = row.split(';');
+                    const tr = document.createElement('tr');
+                    
+                    cols.forEach(col => {
+                        const cell = document.createElement(index === 0 ? 'th' : 'td');
+                        cell.textContent = col.trim();
+                        tr.appendChild(cell);
+                    });
+                    
+                    if (index === 0) {
+                        thead.appendChild(tr);
+                    } else {
+                        tbody.appendChild(tr);
+                    }
+                });
+            })
+            .catch(error => console.error('Error loading CSV:', error));
+    </script>
 </body>
 </html>
