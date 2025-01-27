@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Mio Progetto</title>
+    <title>Relazioni tra Krill e Top Predators</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #f9f9f9;
             color: #333;
         }
         header {
@@ -18,33 +19,73 @@
             padding: 20px;
             text-align: center;
         }
-        main {
+        nav {
+            text-align: center;
+            margin: 10px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #0056b3;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
             padding: 20px;
+            margin: 10px auto;
+            max-width: 800px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         footer {
             background-color: #222;
-            color: #ddd;
+            color: white;
             text-align: center;
-            padding: 10px;
+            padding: 10px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
-        }
-        a {
-            color: #1e90ff;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Benvenuti al Mio Progetto</h1>
+        <h1>Relazioni tra Krill e Top Predators nel Mare di Ross</h1>
+        <p>Basato su distribuzioni predittive e algoritmi di Machine Learning</p>
     </header>
-    <main>
-        <p>Questo progetto riguarda...</p>
-        <p>Puoi consultare il codice sorgente su <a href="https://github.com/tuo-utente/progetto-mio" target="_blank">GitHub</a>.</p>
-    </main>
+    <nav>
+        <a href="#introduzione">Introduzione</a>
+        <a href="#obiettivi">Obiettivi</a>
+        <a href="#metodologia">Metodologia</a>
+        <a href="#risultati">Risultati</a>
+    </nav>
+    <section id="introduzione">
+        <h2>Introduzione</h2>
+        <p>Negli ultimi due secoli, lo sfruttamento umano e i cambiamenti climatici hanno causato profondi cambiamenti nella biodiversità marina antartica. Il krill, componente fondamentale della catena alimentare marina, è un indicatore cruciale dei cambiamenti ecologici.</p>
+        <p>In questa tesi, utilizziamo dati storici raccolti nel Mare di Ross per costruire modelli di distribuzione basati su tecniche di machine learning, fornendo nuove prospettive sulla biogeografia e le dinamiche ecologiche.</p>
+    </section>
+    <section id="obiettivi">
+        <h2>Obiettivi</h2>
+        <ul>
+            <li>Costruire modelli predittivi di distribuzione per krill e top predators.</li>
+            <li>Analizzare le interazioni tra descrittori ambientali e organismi.</li>
+            <li>Visualizzare le distribuzioni tramite mappe tematiche nel Mare di Ross.</li>
+        </ul>
+    </section>
+    <section id="metodologia">
+        <h2>Metodologia</h2>
+        <p>Sono stati utilizzati algoritmi di machine learning, in particolare Random Forest, per analizzare dati ambientali e biotici. La pipeline sviluppata consente di gestire dati complessi e generare heatmap dettagliate delle probabilità di presenza delle specie.</p>
+    </section>
+    <section id="risultati">
+        <h2>Risultati</h2>
+        <p>I risultati mostrano la sovrapposizione delle aree ad alta presenza di krill e top predators, evidenziando fenomeni di predazione e dipendenze ecologiche. Le heatmap prodotte sono strumenti chiave per comprendere queste relazioni.</p>
+        <!-- Placeholder per immagine o mappa -->
+        <img src="placeholder.png" alt="Mappa dei risultati" style="width: 100%; border-radius: 8px;">
+    </section>
     <footer>
-        <p>Creato da <strong>Il Tuo Nome</strong></p>
+        <p>Creato da Crupi Davide - Università di Genova</p>
     </footer>
 </body>
 </html>
