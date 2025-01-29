@@ -1,91 +1,299 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relazioni tra Krill e Top Predators</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            background-color: #0056b3;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        nav {
-            text-align: center;
-            margin: 10px 0;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #0056b3;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        section {
-            padding: 20px;
-            margin: 10px auto;
-            max-width: 800px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <title>Relationships between Krill and Top Predators</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Relazioni tra Krill e Top Predators nel Mare di Ross</h1>
-        <p>Basato su distribuzioni predittive e algoritmi di Machine Learning</p>
+        <h1>Relationships between Krill and Top Predators in the Ross Sea</h1>
     </header>
     <nav>
-        <a href="#introduzione">Introduzione</a>
-        <a href="#obiettivi">Obiettivi</a>
-        <a href="#metodologia">Metodologia</a>
-        <a href="#risultati">Risultati</a>
+        <a href="#introduction">Introduction</a>
+        <a href="#methods">Materials and Methods</a>
+        <a href="#images">Images</a>
     </nav>
-    <section id="introduzione">
-        <h2>Introduzione</h2>
-        <p>Negli ultimi due secoli, lo sfruttamento umano e i cambiamenti climatici hanno causato profondi cambiamenti nella biodiversità marina antartica. Il krill, componente fondamentale della catena alimentare marina, è un indicatore cruciale dei cambiamenti ecologici.</p>
-        <p>In questa tesi, utilizziamo dati storici raccolti nel Mare di Ross per costruire modelli di distribuzione basati su tecniche di machine learning, fornendo nuove prospettive sulla biogeografia e le dinamiche ecologiche.</p>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>Over the past two centuries, human exploitation and climate change have caused significant shifts in Antarctic marine biodiversity. Krill, a fundamental component of the marine food web, serves as a crucial ecological indicator.</p>
+        <p>Environmental descriptors such as water temperature, salinity, ice cover, and nutrient availability, along with species interactions, are key factors influencing organism distribution. Machine learning models like Random Forest (RF) effectively predict distributions based on the ecological niche concept. These models have shown promising results in the Ross Sea, particularly for phytoplankton and zooplankton (Pinkerton et al., 2010; Grillo et al., 2022).
+
+            This thesis aims to develop predictive distribution models for Antarctic krill and top predators using historical data from the X Italian Expedition to the Ross Sea (November–December 1994). The data, classified as "grey literature," will provide a baseline for comparison with present conditions. Both fundamental niche factors (e.g., temperature, salinity, ice cover) and realized niche elements (e.g., competition, predation) will be included in the models to better understand species distribution, as interactions with other organisms can limit access to suitable habitats.
+            
+            Multiple RF models will be trained for each species and compared across three different methodologies to identify the most reliable approach. The best-performing model will then be applied to new environmental data covering the Ross Sea area to create heatmaps illustrating species presence probabilities on a broader scale. These maps will allow for the assessment of whether predicted distributions are influenced by environmental factors, prey-predator dynamics, or competitive interactions, offering insights into the biogeography and ecological dynamics of the Antarctic environment.
+
+        </section>
+        <section id="methods">
+            <h2>Materials and Methods</h2>
+            <p>The study implemented a pipeline for collecting environmental data directly using R, with input from raster files downloaded from Quantarctica. Multiple models were trained to identify the best-performing ones for both fundamental and realized niches.</p>
+        
+            <img src="pipeline.png" alt="Pipeline Overview" style="max-width:100%; height:auto; margin-top:10px;">
+        
+            <h3>Workflow Overview: Species Distribution Modeling</h3>
+        
+            <h4>1. Data Conversion</h4>
+            <p>The raw data is first processed to classify observations into <strong>presence</strong> (red) and <strong>absence</strong> (blue) categories, forming the basis for model training.</p>
+        
+            <h4>2. Training Matrix Construction</h4>
+            <p>Environmental variables such as <strong>iron, silicate, salinity, chlorophyll, surface currents, and ice cover</strong> are compiled into a structured matrix. The dataset is split into <strong>70% for training</strong> and <strong>30% for validation</strong>, ensuring a balanced approach for model optimization.</p>
+        
+            <h4>3. Model Training and Selection</h4>
+            <p>Three machine learning models are trained using the dataset:</p>
+            <ul>
+                <li><strong>Standard Model</strong> – baseline performance</li>
+                <li><strong>Optimized Model</strong> – fine-tuned for improved accuracy</li>
+                <li><strong>Reduced Model</strong> – simplified for computational efficiency</li>
+            </ul>
+        
+            <h4>4. Application to New Data</h4>
+            <p>The trained models are tested on unseen environmental datasets to assess their predictive accuracy. Predictions fall into three categories:</p>
+            <ul>
+                <li><strong>High performance & reliability</strong> (best models)</li>
+                <li><strong>Good performance but lower reliability</strong></li>
+                <li><strong>Lower overall performance</strong></li>
+            </ul>
+        
+            <h4>5. Heatmap Construction</h4>
+            <p>The output predictions are visualized as <strong>heatmaps</strong>, where different colors indicate the <strong>relative occurrence index</strong> (0 to 1), with higher values reflecting a greater probability of species presence.</p>
+        
+            <h4>6. Incorporating Realized Niche Data</h4>
+            <p>To refine predictions, the models integrate species distribution data beyond environmental variables, incorporating <strong>biotic interactions</strong> such as competition and predation. This step helps distinguish between <strong>potential</strong> and <strong>realized</strong> habitats.</p>
+        
+            <h4>7. Model Evaluation Metrics</h4>
+            <p>Model performance is assessed using four key statistical measures:</p>
+            <ul>
+                <li><strong>Accuracy</strong> – overall correctness of predictions</li>
+                <li><strong>AUC-ROC</strong> – ability to differentiate between presence and absence</li>
+                <li><strong>TSS (True Skill Statistic)</strong> – measures predictive power beyond random chance</li>
+                <li><strong>Kappa</strong> – agreement between predicted and observed distributions</li>
+            </ul>
+        
+            <h4>8. Realized Niche Concept</h4>
+            <p>The final distribution maps reflect the <strong>realized niche</strong>, i.e., the portion of the fundamental niche <strong>actually occupied</strong> by the species under natural conditions, considering the influence of other organisms and ecological interactions.</p>
+        </section>
+        
+    <section id="images">
+        <h2>Images</h2>
+        <div class="carousel">
+            <div class="carousel-track">
+                <div class="image-card" onclick="openWidget('krill')">
+                    <img src="krill_card.png" alt="Krill Overview">
+                    <p>Krill</p>
+                </div>
+                <div class="image-card" onclick="openWidget('adelie')">
+                    <img src="adelie_card.png" alt="Adelie Penguin Overview">
+                    <p>Adelie Penguin</p>
+                </div>
+                <div class="image-card" onclick="openWidget('orca')">
+                    <img src="orca_card.png" alt="Orca Overview">
+                    <p>Orca</p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-indicators">
+            <button onclick="setCarousel(0)" class="active"></button>
+            <button onclick="setCarousel(1)"></button>
+            <button onclick="setCarousel(2)"></button>
+        </div>
     </section>
-    <section id="obiettivi">
-        <h2>Obiettivi</h2>
+    <section id="data-header">
+        <h2>Data Preview</h2>
+        <button onclick="loadCSVHeader()">Show Data Header</button>
+        <div id="data-table-container" class="data-table-container">
+            <!-- Header table will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <section id="conclusions">
+        <h2>Conclusions</h2>
+        <p>
+            The use of machine learning to model the distribution of marine organisms has proven highly effective, 
+            providing accurate predictions across a wide range of species, from small organisms to apex predators. 
+            Some predictions have been validated using historical data, such as the migrations of Adélie penguins 
+            and krill distributions. The modeling of large mammals, such as orcas, has shown results consistent 
+            with their ecology, despite validation challenges.
+        </p>
+        <p>
+            However, modeling all key species was not possible due to limited data availability. With more comprehensive 
+            datasets, it could be possible to reconstruct the entire Antarctic trophic network. Open data sharing, in 
+            accordance with FAIR principles, is crucial to improving model performance. Additionally, a reproducible 
+            pipeline has been developed to optimize environmental data retrieval and analysis. This approach could be 
+            expanded with open-source software, making machine learning techniques more accessible to the scientific 
+            community.
+        </p>
+    </section>
+
+    <section id="bibliography">
+        <h2>Bibliography</h2>
         <ul>
-            <li>Costruire modelli predittivi di distribuzione per krill e top predators.</li>
-            <li>Analizzare le interazioni tra descrittori ambientali e organismi.</li>
-            <li>Visualizzare le distribuzioni tramite mappe tematiche nel Mare di Ross.</li>
+            <li>
+                Pinkerton, M. H., Smith, A. N. H., Raymond, B., Hosie, G. W., Sharp, B., Leathwick, J. R., & Bradford-Grieve, J. M. (2010). 
+                Spatial and seasonal distribution of adult <i>Oithona similis</i> in the Southern Ocean: Predictions using boosted regression trees. 
+                <i>Deep Sea Research Part I: Oceanographic Research Papers, 57</i>(4), 469–485. 
+                <a href="https://doi.org/10.1016/j.dsr.2009.12.010" target="_blank">https://doi.org/10.1016/j.dsr.2009.12.010</a>
+            </li>
+            <li>
+                Grillo, M., Huettmann, F., Guglielmo, L., & Schiaparelli, S. (2022). 
+                Three-Dimensional Quantification of Copepods Predictive Distributions in the Ross Sea: 
+                First Data Based on a Machine Learning Model Approach and Open Access (FAIR) Data. 
+                <i>Diversity, 14</i>, 355. 
+                <a href="https://doi.org/10.3390/d14050355" target="_blank">https://doi.org/10.3390/d14050355</a>
+            </li>
+            <li>
+                Azzali, M., & Kalinowski, J. (2000). 
+                Spatial and Temporal Distribution of Krill <i>Euphausia superba</i> Biomass in the Ross Sea (1989–1990 and 1994). 
+                In F. M. Faranda, L. Guglielmo, & A. Ianora (Eds.), <i>Ross Sea Ecology</i> (pp. 433–455). Springer Berlin Heidelberg. 
+                <a href="https://doi.org/10.1007/978-3-642-59607-0_31" target="_blank">https://doi.org/10.1007/978-3-642-59607-0_31</a>
+            </li>
+            <li>
+                Mackintosh, N. A. (1973). 
+                Distribution of post-larval krill in the Antarctic. 
+                <i>Discovery Reports, 36</i>, 95–156.
+            </li>
+            <li>
+                Emslie, S. D., Polito, M. J., Brasso, R., Patterson, W. P., & Sun, L. (2014). 
+                Ornithogenic soils and the paleoecology of pygoscelid penguins in Antarctica. 
+                <i>Quaternary International, 352</i>, 4–15. 
+                <a href="https://doi.org/10.1016/j.quaint.2014.07.031" target="_blank">https://doi.org/10.1016/j.quaint.2014.07.031</a>
+            </li>
+            <li>
+                Davis, L. S., Harcourt, R. G., & Bradshaw, C. J. (2001). 
+                The winter migration of Adelie penguins breeding in the Ross Sea sector of Antarctica. 
+                <i>Polar Biology, 24</i>(8), 593–597. 
+                <a href="https://doi.org/10.1007/s003000100256" target="_blank">https://doi.org/10.1007/s003000100256</a>
+            </li>
+            <li>
+                Pitman, R. L., Durban, J. W., Greenfelder, M., Guinet, C., Jorgensen, M., Olson, P. A., Plana, J., Tixier, P., & Towers, J. R. (2011). 
+                Observations of a distinctive morphotype of killer whale (<i>Orcinus orca</i>), type D, from subantarctic waters. 
+                <i>Polar Biology, 34</i>(2), 303–306. 
+                <a href="https://doi.org/10.1007/s00300-010-0871-3" target="_blank">https://doi.org/10.1007/s00300-010-0871-3</a>
+            </li>
         </ul>
     </section>
-    <section id="metodologia">
-        <h2>Metodologia</h2>
-        <p>Sono stati utilizzati algoritmi di machine learning, in particolare Random Forest, per analizzare dati ambientali e biotici. La pipeline sviluppata consente di gestire dati complessi e generare heatmap dettagliate delle probabilità di presenza delle specie.</p>
-    </section>
-    <section id="risultati">
-        <h2>Risultati</h2>
-        <p>I risultati mostrano la sovrapposizione delle aree ad alta presenza di krill e top predators, evidenziando fenomeni di predazione e dipendenze ecologiche. Le heatmap prodotte sono strumenti chiave per comprendere queste relazioni.</p>
-        <!-- Placeholder per immagine o mappa -->
-        <img src="placeholder.png" alt="Mappa dei risultati" style="width: 100%; border-radius: 8px;">
-    </section>
+    
+    
+
+    
+    
+    <div id="widget" class="widget" style="display: none;">
+        <div class="widget-content">
+            <h2 id="widget-title"></h2>
+            <div id="widget-body" class="widget-body"></div>
+            <button class="widget-close" onclick="closeWidget()">Close</button>
+        </div>
+    </div>
     <footer>
-        <p>Creato da Crupi Davide - Università di Genova</p>
+        <p>Created by Davide Crupi - University of Genoa</p>
     </footer>
+    <script>
+        let currentIndex = 0;
+
+        function updateIndicators() {
+            const indicators = document.querySelectorAll('.carousel-indicators button');
+            indicators.forEach((button, index) => {
+                button.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function setCarousel(index) {
+            currentIndex = index;
+            const track = document.querySelector('.carousel-track');
+            const offset = -currentIndex * 100;
+            track.style.transform = `translateX(${offset}%)`;
+            updateIndicators();
+        }
+
+        function openWidget(animal) {
+            const widget = document.getElementById('widget');
+            const widgetTitle = document.getElementById('widget-title');
+            const widgetBody = document.getElementById('widget-body');
+
+            let content = '';
+            let title = '';
+            if (animal === 'krill') {
+                title = 'Krill';
+                content = `
+                    <div class="widget-column">
+                        <img src="krillFondamentale.png" alt="Krill Fundamental Niche" class="map">
+                        <p>From the analysis of the distribution map based on the fundamental niche of E. superba , a clear concentration of probability of presence emerges in the regions associated with the Ross Sea Gyre and off the coast of Victoria Land, both characterized by IOR values exceeding 0.8%.</p>
+                    </div>
+                    <div class="widget-column">
+                        <img src="krillRealizzata.png" alt="Krill Realized Niche" class="map">
+                        <p>The predicted distribution based on the realized niche  shows an increased probability of krill occurrence in two specific areas: east of the Ross Sea, at the northernmost edge of the MPA dedicated to krill research (KRZ), and in the Ross Gyre region. While this pattern is clearly visible, it appears as an underestimation in the image, and its causes remain uncertain. Additionally, there is a significant decrease in krill occurrence probability in offshore areas, with IOR values approaching zero. This phenomenon seems linked to the Antarctic Circumpolar Current, which strongly influences environmental descriptors and significantly impacts krill distribution in this region (Hense et al., 2003).
+                        </div>
+                    <div class="widget-column">
+                        <img src="azzali.png" alt="Krill Realized Niche" class="map">
+                        <p>The data obtained from the model align with information previously studied and confirmed as swarming areas, as reported by Mackintosh and Azzali (Azzali & Kalinowski, 2000; Mackintosh, 1973). Notably, these zones were initially identified through point sampling in the area of interest and later validated using machine learning models developed in this thesis, based on distribution data from another region (Fig. 13).
+                    </p>
+                    </div>
+                    `;
+            } else if (animal === 'adelie') {
+                title = 'Adelie Penguin';
+                content = `
+                    <div class="widget-column">
+                        <img src="adeliaFondamentale.png" alt="Adelie Penguin Fundamental Niche" class="map">
+                        <p>The modeled distribution of the Adélie penguin shows significantly high concentrations in specific coastal regions, with IOR values nearing 0.9% (Fig. 16).
+
+These regions are likely associated with greater food availability and proximity to breeding colonies, consistent with the species' ecology, which requires nesting on land (Emslie et al., 2014). In contrast, areas far from the coast or in open ocean show significantly lower IOR values, averaging 0.4%, reflecting reduced environmental suitability for the species. However, an exception is observed near the Balleny Islands, with an average IOR of 0.8%, identified as a winter migration site for Adélie penguins (Davis et al., 2001).</p>
+                    </div>
+                    <div class="widget-column">
+                        <img src="adeliaRealizzata.png" alt="Adelie Penguin Realized Niche" class="map">
+                        <p>Analyzing the realized niche map, a decrease is immediately noticeable in previously identified areas, including GZPiii and the migration area reported by Davis et al. (2001). However, a connection remains evident, highlighted by a higher IOR value (0.8%), linking the islands to the continental coast.</p>
+                    </div>
+                    <div class="widget-column">
+                        <img src="davids_adelia.png" alt="Adelie Penguin Realized Niche" class="map">
+                        <p>However, an exception is observed near the Balleny Islands, with an average IOR of 0.8%, identified as a winter migration site for Adélie penguins (Davis et al., 2001).</p>
+                    </div>`;
+            } else if (animal === 'orca') {
+                title = 'Killer Whale';
+                content = `
+                    <div class="widget-column">
+                        <img src="orcaFondamentale.png" alt="Orca Fundamental Niche" class="map">
+                        <p>At the highest trophic level considered in the models is the Killer Whale (Orcinus orca), one of the most iconic apex predators of the Southern Ocean. The fundamental niche map does not show high IOR values (0.28%) within the analyzed area. However, local increases are observed, with average values of 0.25% near the coasts, similar values farther offshore to the north, and a peak concentration in the sampling areas.</p>
+                    </div>
+                    <div class="widget-column">
+                        <img src="orcaRealizzata.png" alt="Orca Realized Niche" class="map">
+                        <p>Orca distribution appears more influenced by prey availability than environmental factors, as shown in the realized niche map. Two key areas stand out with doubled IOR values (0.48%): one near the coast and one in a pelagic offshore zone. These patterns may reflect the presence of distinct O. orca ecotypes in the Southern Ocean, with type C orcas feeding on Antarctic toothfish in coastal areas and type A orcas preying on minke whales offshore (Pitman et al., 2011).</p>
+                    </div>`;
+            }
+
+            widgetTitle.textContent = title;
+            widgetBody.innerHTML = content;
+            widget.style.display = 'flex';
+        }
+
+        function closeWidget() {
+            const widget = document.getElementById('widget');
+            widget.style.display = 'none';
+        }
+
+        async function loadCSVHeader() {
+            const container = document.getElementById('data-table-container');
+
+            try {
+                const response = await fetch('data.csv'); // Assicurati che il file `data.csv` sia nella directory corretta
+                const data = await response.text();
+
+                // Leggi solo la prima riga per l'header
+                const [header] = data.split('\n');
+                const columns = header.split(',');
+
+                // Costruisci la tabella
+                let tableHTML = '<table><tr>';
+                columns.forEach(column => {
+                    tableHTML += `<th>${column.trim()}</th>`;
+                });
+                tableHTML += '</tr></table>';
+
+                container.innerHTML = tableHTML; // Mostra la tabella
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                container.innerHTML = '<p style="color: red;">Failed to load CSV data.</p>';
+            }
+        }
+
+    </script>
 </body>
 </html>
