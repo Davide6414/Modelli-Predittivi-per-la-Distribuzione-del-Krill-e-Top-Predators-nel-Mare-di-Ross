@@ -271,28 +271,47 @@ These regions are likely associated with greater food availability and proximity
 
         async function loadCSVHeader() {
             const container = document.getElementById('data-table-container');
-
+        
             try {
                 const response = await fetch('data.csv'); // Assicurati che il file `data.csv` sia nella directory corretta
                 const data = await response.text();
-
-                // Leggi solo la prima riga per l'header
-                const [header] = data.split('\n');
-                const columns = header.split(',');
-
+        
+                // Dividi il file in righe
+                const rows = data.split('\n').map(row => row.trim()).filter(row => row.length > 0);
+                if (rows.length === 0) {
+                    container.innerHTML = '<p style="color: red;">No data found in CSV.</p>';
+                    return;
+                }
+        
+                // Usa il punto e virgola come separatore
+                const columns = rows[0].split(';');
+                const numRowsToShow = Math.min(20, rows.length - 1); // Mostra fino a 20 righe di dati
+        
                 // Costruisci la tabella
-                let tableHTML = '<table><tr>';
+                let tableHTML = '<table border="1"><thead><tr>';
                 columns.forEach(column => {
                     tableHTML += `<th>${column.trim()}</th>`;
                 });
-                tableHTML += '</tr></table>';
-
+                tableHTML += '</tr></thead><tbody>';
+        
+                for (let i = 1; i <= numRowsToShow; i++) {
+                    const rowData = rows[i].split(';');
+                    tableHTML += '<tr>';
+                    rowData.forEach(cell => {
+                        tableHTML += `<td>${cell.trim()}</td>`;
+                    });
+                    tableHTML += '</tr>';
+                }
+        
+                tableHTML += '</tbody></table>';
                 container.innerHTML = tableHTML; // Mostra la tabella
+        
             } catch (error) {
                 console.error('Error loading CSV:', error);
                 container.innerHTML = '<p style="color: red;">Failed to load CSV data.</p>';
             }
         }
+
 
     </script>
 </body>
